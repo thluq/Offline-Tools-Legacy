@@ -692,7 +692,7 @@ body.dev-mode-on .priority-badge { display: flex !important; }
 }
 
 .facility-display {
-    font-size: 42pt;
+    font-size: 50pt;
     font-weight: 700;
     text-transform: uppercase;
     line-height: 1;
