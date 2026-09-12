@@ -1,0 +1,15 @@
+/* ============================================
+   GAYLORD SALVADOS — Estilos específicos
+   (importa etiqueta-shared.css para base)
+   ============================================ */
+
+/* QR Code — tamanho maior (sem barcode) */
+.label-qr-area {
+    padding: 6mm 0;
+}
+
+.label-qr-area div[id^="qrcode"] img,
+.label-qr-area div[id^="qrcode"] canvas {
+    width: 220px !important;
+    height: 220px !important;
+}

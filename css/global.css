@@ -1,0 +1,147 @@
+/* ============================================
+   GLOBAL STYLES — OfflineTools MELI
+   Estilos compartilhados entre todas as páginas
+   ============================================ */
+
+/* --- CSS Custom Properties --- */
+:root {
+    --meli-yellow: #ffe600;
+    --meli-blue: #3483fa;
+    --meli-blue-hover: #2968c8;
+    --meli-blue-active: #1f52a0;
+    --meli-green: #00a650;
+    --meli-red: #f23d4f;
+    --meli-orange: #ff9800;
+
+    --bg-primary: #ededed;
+    --bg-white: #ffffff;
+
+    --text-primary: #333;
+    --text-secondary: #666;
+    --text-muted: #999;
+
+    --border-light: #eee;
+    --border-medium: #ddd;
+
+    --shadow-sm: 0 1px 0 0 rgba(0,0,0,.1);
+    --shadow-md: 0 2px 15px rgba(0,0,0,0.1);
+    --shadow-lg: 0 4px 15px rgba(0,0,0,0.15);
+
+    --header-height: 54px;
+    --font-primary: "Proxima Nova", -apple-system, sans-serif;
+
+    --radius-sm: 6px;
+    --radius-md: 8px;
+}
+
+/* --- Reset --- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-primary);
+    font-family: var(--font-primary);
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Utilitários --- */
+.hidden { display: none !important; }
+.content-wrapper { flex: 1 0 auto; }
+
+/* --- Header (Kraken Nav) --- */
+.kraken-nav-header {
+    background-color: var(--meli-yellow);
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: var(--shadow-sm);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1001;
+}
+
+.header-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 20px;
+    width: 100%;
+}
+
+.logo-container { margin: 0; }
+.logo-img { height: 35px; display: block; }
+
+/* --- Footer --- */
+.main-footer {
+    flex-shrink: 0;
+    width: 100%;
+    padding: 30px 20px;
+    background-color: var(--bg-white);
+    border-top: 1px solid #e6e6e6;
+    text-align: center;
+}
+
+.footer-legal {
+    max-width: 800px;
+    margin: 0 auto;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.footer-legal hr {
+    border: 0;
+    border-top: 1px solid var(--border-light);
+    margin: 15px auto;
+    width: 50px;
+}
+
+.disclaimer {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: justify;
+    line-height: 1.4;
+}
+
+.dev-social-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.dev-social-links a {
+    font-size: 18px;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.dev-social-links a:hover { transform: scale(1.2); }
+.dev-social-links p { margin: 0; font-weight: 600; color: var(--text-primary); }
+.fa-github { color: var(--text-primary); }
+.fa-linkedin { color: #0077b5; }
+
+/* --- Botão Primário (base) --- */
+.btn-primary {
+    width: 100%;
+    padding: 16px;
+    background: var(--meli-blue);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover { background: var(--meli-blue-hover); }
+.btn-primary:active { background: var(--meli-blue-active); }

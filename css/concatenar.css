@@ -1,0 +1,73 @@
+/* ============================================
+   CONCATENAR IDs — Estilos específicos
+   ============================================ */
+
+.concat-layout { padding: 20px; max-width: 800px; margin: 100px auto 0; }
+
+.concat-card { background: #fff; padding: 32px; border-radius: 8px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); }
+.concat-card h2 { margin: 0 0 4px; font-size: 22px; color: #333; }
+.concat-card .subtitle { font-size: 13px; color: #999; margin: 0 0 20px; }
+
+.file-import-label {
+    cursor: pointer; color: #3483fa; font-weight: 600; font-size: 0.9rem;
+    display: inline-flex; align-items: center; gap: 6px; transition: opacity 0.2s;
+}
+.file-import-label:hover { opacity: 0.75; }
+
+.concat-card textarea {
+    width: 100%; min-height: 200px; border: 1px solid #ddd; border-radius: 6px;
+    padding: 15px; margin: 16px 0; font-family: monospace; font-size: 13px;
+    resize: vertical; transition: border-color 0.2s;
+}
+.concat-card textarea:focus { outline: none; border-color: #3483fa; }
+
+/* --- Resultado --- */
+.result-section { margin-top: 24px; animation: fadeSlideIn 0.35s ease; }
+@keyframes fadeSlideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.result-header h3 { margin: 0; font-size: 16px; color: #333; }
+.result-stats { display: flex; gap: 16px; margin-bottom: 14px; }
+.stat-badge { display: inline-flex; align-items: center; gap: 6px; background: #f0f5ff; color: #3483fa; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+.stat-badge.warning { background: #fff3e0; color: #e65100; }
+
+.result-box {
+    background: #1e1e2e; color: #a6e3a1; padding: 20px; border-radius: 8px;
+    font-family: "Cascadia Code", "Fira Code", monospace; font-size: 13px; line-height: 1.6;
+    word-break: break-all; max-height: 300px; overflow-y: auto; position: relative; white-space: pre-wrap;
+}
+.result-box::-webkit-scrollbar { width: 6px; }
+.result-box::-webkit-scrollbar-track { background: #1e1e2e; }
+.result-box::-webkit-scrollbar-thumb { background: #45475a; border-radius: 3px; }
+.result-box .sql-keyword { color: #cba6f7; }
+.result-box .sql-paren { color: #f9e2af; }
+.result-box .sql-id { color: #a6e3a1; }
+
+/* --- Botões de ação --- */
+.action-buttons { display: flex; gap: 10px; margin-top: 12px; }
+.btn-copy, .btn-download {
+    flex: 1; padding: 12px; border: none; border-radius: 6px; font-weight: 600; font-size: 14px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;
+}
+.btn-copy { background: #00a650; color: white; }
+.btn-copy:hover { background: #008c44; }
+.btn-copy.copied { background: #333; pointer-events: none; }
+.btn-download { background: #f5f5f5; color: #333; border: 1px solid #ddd; }
+.btn-download:hover { background: #e8e8e8; }
+
+/* --- Separador --- */
+.separator-section { display: flex; align-items: center; gap: 12px; margin-top: 16px; padding-top: 16px; border-top: 1px solid #eee; }
+.separator-section label { font-size: 13px; color: #666; white-space: nowrap; font-weight: 500; }
+.separator-section select { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; color: #333; background: #fff; cursor: pointer; transition: border-color 0.2s; }
+.separator-section select:focus { outline: none; border-color: #3483fa; }
+
+/* --- Toast --- */
+.toast {
+    position: fixed; bottom: 30px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: #333; color: white; padding: 12px 28px;
+    border-radius: 8px; font-size: 14px; font-weight: 500;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    opacity: 0; transition: all 0.35s ease; z-index: 9999; pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }

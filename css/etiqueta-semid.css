@@ -1,0 +1,38 @@
+/* ============================================
+   ETIQUETA SEM ID — Estilos específicos
+   (importa etiqueta-shared.css para base)
+   ============================================ */
+
+/* QR Code — tamanho sem ID */
+.label-qr-area {
+    padding: 4mm 0 2mm 0;
+}
+
+.label-qr-area div[id^="qrcode"] img,
+.label-qr-area div[id^="qrcode"] canvas {
+    width: 180px !important;
+    height: 180px !important;
+}
+
+/* Barcode embaixo do QR */
+.label-barcode-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 4mm 4mm 4mm;
+}
+
+.barcode-canvas {
+    width: 90% !important;
+    height: 60px !important;
+    margin: 0 !important;
+}
+
+.label-barcode-text {
+    font-size: 10pt;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    margin-top: 1mm;
+    color: #333;
+}

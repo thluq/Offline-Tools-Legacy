@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Etiqueta Master - Meli</title>
+    <link rel="icon" type="image/svg+xml"
+        href="https://http2.mlstatic.com/frontend-assets/ui-navigation/5.19.5/mercadolibre/favicon.svg">
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/etiqueta-master.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script src="../libs/JsBarcode.all.min.js"></script>
+    <script src="../libs/qrcode.min.js"></script>
+    <script src="../js/etiqueta-master.js" defer></script>
+</head>
+
+<body>
+    <header class="kraken-nav-header">
+        <div class="header-content">
+            <div class="logo-container">
+                <a href="../index.html">
+                    <img src="https://http2.mlstatic.com/frontend-assets/ui-navigation/5.19.5/mercadolibre/logo__large_plus.png"
+                        class="logo-img" alt="Mercado Livre">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="master-container">
+        <div class="input-panel">
+            <div class="input-panel-header"
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; position: relative;">
+                <h2 style="margin: 0;">Gerador de Etiqueta</h2>
+
+                <div class="options-menu-container" style="position: relative;">
+                    <button id="unlock-btn" onclick="toggleOptionsMenu()" title="Opções"
+                        style="background: none; border: none; cursor: pointer; font-size: 24px; color: #3483fa; padding: 0 10px; line-height: 1;">⋮</button>
+
+                    <div id="options-menu" class="options-menu">
+                        <button onclick="promptForDeveloperMode()">Habilitar Modo Desenvolvedor</button>
+                        <button onclick="window.location.href='etiqueta-semid.html'">Ir para SEM ID</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Tipo de Endereço (Residencial ou Comercial)</label>
+                <div class="address-type-selector">
+                    <input type="radio" id="type-residential" name="address-type" value="R" checked
+                        onchange="updateLabel()">
+                    <label for="type-residential" class="selector-btn residencial">R</label>
+
+                    <input type="radio" id="type-commercial" name="address-type" value="C" onchange="updateLabel()">
+                    <label for="type-commercial" class="selector-btn comercial">C</label>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Ícone Envio</label>
+                <div class="address-type-selector route-icon-selector">
+                    <input type="checkbox" id="route-n" name="route-icon" value="N" onchange="handleRouteIcon('N')">
+                    <label for="route-n" class="selector-btn route-selected">N</label>
+
+                    <input type="checkbox" id="route-s" name="route-icon" value="S" onchange="handleRouteIcon('S')">
+                    <label for="route-s" class="selector-btn route-selected">S</label>
+
+                    <input type="checkbox" id="route-meliair" name="route-icon" value="meliair"
+                        onchange="handleRouteIcon('meliair')">
+                    <label for="route-meliair" class="selector-btn route-selected">MeliAir</label>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Tipo de Pacote</label>
+                <div class="address-type-selector package-type-selector">
+                    <input type="checkbox" id="pkg-cheapest" name="pkg-type" value="cheapest"
+                        onchange="handlePackageType('cheapest')">
+                    <label for="pkg-cheapest" class="selector-btn pkg-btn">Cheapest</label>
+
+                    <input type="checkbox" id="pkg-bulky" name="pkg-type" value="bulky"
+                        onchange="handlePackageType('bulky')">
+                    <label for="pkg-bulky" class="selector-btn pkg-btn">Bulky</label>
+
+                    <input type="checkbox" id="pkg-oversized" name="pkg-type" value="oversized"
+                        onchange="handlePackageType('oversized')">
+                    <label for="pkg-oversized" class="selector-btn pkg-btn">Oversized</label>
+                </div>
+            </div>
+
+            <div id="locked-fields" class="locked-state">
+                <div class="input-group">
+                    <label>Informações Seller</label>
+                    <textarea id="in-header-free" rows="4" placeholder="Insira os dados do Seller..."
+                        oninput="updateLabel()"></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label>Informações Buyer</label>
+                    <textarea id="in-recipient-free" rows="4" placeholder="Insira os dados do Buyer..."
+                        oninput="updateLabel()"></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label>Nota Fiscal</label>
+                    <input type="text" id="in-nf" placeholder="Ex: 51277" oninput="updateLabel()">
+                </div>
+
+                <div class="input-group">
+                    <label>Prioridade de Processamento</label>
+                    <input type="text" id="in-priority" placeholder="Ex: 2" oninput="updateLabel()">
+                </div>
+
+                <div class="input-group">
+                    <label>Horário de Corte</label>
+                    <input type="time" id="in-cutoff" oninput="updateLabel()">
+                </div>
+
+                <div class="input-group">
+                    <label>Remover Marca d'água?</label>
+                    <div class="address-type-selector">
+                        <input type="radio" id="watermark-on" name="watermark-toggle" value="on" checked
+                            onchange="updateLabel()">
+                        <label for="watermark-on" class="selector-btn residencial">Manter</label>
+
+                        <input type="radio" id="watermark-off" name="watermark-toggle" value="off"
+                            onchange="updateLabel()">
+                        <label for="watermark-off" class="selector-btn comercial">Remover</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Facility Destino</label>
+                <input type="text" id="in-ssp" placeholder="Ex: SSP20" oninput="updateLabel()">
+            </div>
+
+            <div class="input-group">
+                <label>Origem</label>
+                <input type="text" id="in-fsp" placeholder="Ex: FSP04" oninput="updateLabel()">
+            </div>
+
+            <div class="input-group">
+                <label style="color: #3483fa; font-weight: bold;">ID do Pacote</label>
+                <input type="text" id="in-id" placeholder="Ex: 41234567890" oninput="updateLabel()">
+            </div>
+
+            <div class="input-group">
+                <label>Número do Cluster</label>
+                <input type="text" id="in-cluster" placeholder="Ex: 45" oninput="updateLabel()">
+            </div>
+
+            <div class="input-group">
+                <label>Promessa</label>
+                <input type="date" id="in-date" onchange="updateLabel()">
+            </div>
+
+            <div class="button-group">
+                <button class="btn-primary" onclick="window.print()"
+                    style="width: 100%; padding: 18px; font-weight: bold; font-size: 16px; cursor: pointer; border-radius: 8px; background-color: #3483fa; color: white; border: none; margin-top: 10px;">
+                    IMPRIMIR ETIQUETA
+                </button>
+            </div>
+
+            <div class="footer-legal">
+                <div class="dev-social-links">
+                    <a href="https://github.com/thluq" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/thiago-lucas-76b293208/" target="_blank" title="LinkedIn"><i
+                            class="fab fa-linkedin"></i></a>
+                    <p>Dev. <strong>Thiago Lucas</strong> (SSP20)</p>
+                    <p><strong>thiagoluc.goncalves@mercadolivre.com</strong></p>
+                </div>
+                <hr>
+            </div>
+
+            <div style="height: 50px;"></div>
+        </div>
+
+        <div class="label-view-area">
+            <div class="label-preview" id="printable-label">
+                <div class="origin-tag">Etiqueta Gerada manualmente</div>
+
+                <div class="header-label-container">
+                    <img src="https://http2.mlstatic.com/frontend-assets/ui-navigation/5.19.5/mercadolibre/favicon.svg"
+                        class="mini-logo-hand" alt="Meli Icon">
+                    <div class="header-text-col">
+                        <div class="label-free-zone" id="out-header-free"></div>
+                    </div>
+                    <div class="route-circle" id="out-route-icon">N</div>
+                </div>
+
+                <div class="barcode-section">
+                    <div class="origin-badge" id="out-fsp">FSP--</div>
+
+                    <div class="barcode-flex-container">
+                        <div id="package-icon-container" class="package-icon-hidden">
+                            <img id="package-icon-img" src="../icons/bulkyicon.png" alt="Tipo" class="bulky-icon-img">
+                        </div>
+                        <svg id="barcode"></svg>
+                    </div>
+
+                    <div class="barcode-text-container" id="barcode-text-manual"></div>
+
+                    <div class="facility-row">
+                        <span class="priority-badge" id="out-priority-badge"><span class="priority-num"
+                                id="out-priority"></span></span>
+                        <div class="facility-display" id="out-ssp">---</div>
+                        <span class="cutoff-time dev-only" id="out-cutoff"></span>
+                    </div>
+
+                    <div class="cluster-row" id="out-cluster-combined">FSP-- &gt; SSP-- &gt; --</div>
+
+                    <div class="delivery-date-row">
+                        <span id="out-date">--- 00/00/0000</span>
+                        <span class="nf-display dev-only" id="out-nf"></span>
+                    </div>
+                </div>
+
+                <div class="footer-separator"></div>
+
+                <div class="footer-area">
+                    <div class="recipient-col">
+                        <div class="recipient-zone" id="out-recipient-free"></div>
+                    </div>
+                    <div class="qr-zone">
+                        <div id="qrcode"></div>
+                        <div class="address-type-indicator" id="out-address-type">R</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

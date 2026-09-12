@@ -1,0 +1,53 @@
+/* ============================================
+   INDEX — Estilos do menu principal
+   ============================================ */
+
+.kraken-main { margin-top: 100px; }
+
+.menu-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.menu-card {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+    width: 180px;
+}
+
+.menu-card:hover { transform: translateY(-5px); }
+
+.card-circle {
+    background-color: #b9b9b937;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    margin-bottom: 14px;
+    overflow: hidden;
+}
+
+.card-circle img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+.card-name {
+    color: var(--text-primary);
+    font-size: 15px;
+    text-align: center;
+    font-weight: 600;
+    margin: 0;
+}

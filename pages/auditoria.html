@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoria Offline - MELI</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/auditoria.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="https://http2.mlstatic.com/frontend-assets/ui-navigation/5.19.5/mercadolibre/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+    <header class="kraken-nav-header">
+        <div class="header-content">
+            <div class="logo-container">
+                <a href="../index.html" class="logo-link">
+                    <img src="https://http2.mlstatic.com/frontend-assets/ui-navigation/5.19.5/mercadolibre/logo__large_plus.png" alt="Voltar" class="logo-img">
+                </a>
+            </div>
+            
+            <div id="header-menu" class="menu-options hidden">
+                <button class="dots-btn" onclick="toggleMenu(event)">⋮</button>
+                <div id="dropdown" class="options-dropdown">
+                    <button onclick="exportarQR()">📱 Exportar QR da Base</button>
+                    <button onclick="voltarParaConfig()">⚙️ Editar Base</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="content-wrapper"> 
+        <div class="audit-layout">
+            <div id="step-config" class="audit-card">
+                <h2>Configurar Base de IDs</h2>
+
+                <div class="config-actions">
+                    <label class="file-import-label">
+                        📁 Importar Arquivo
+                        <input type="file" id="fileInput" style="display:none" onchange="lerArquivo(this)">
+                    </label>
+                    <button type="button" class="btn-qr-import" onclick="abrirModalImport()">
+                        📱 Importar via QR
+                    </button>
+                </div>
+
+                <textarea id="base-ids" placeholder="Dê um CTRL+A na tela com os IDS da rota a ser auditada(recomendo no retorno a estação) e cole aqui..."></textarea>
+                <button class="btn-primary" onclick="iniciarAuditoria()">INICIAR CONFERÊNCIA</button>
+            </div>
+
+            <div id="step-audit" class="hidden">
+                <div id="status-screen" class="status-screen-default">
+                    
+                    <div class="feedback-container">
+                        <div id="feedback-icon">
+                            <img src="../icons/icon-package.svg" alt="Pacote">
+                        </div>
+                        <h1 id="feedback-title">Escaneie o código</h1>
+                        <p id="feedback-msg">Aguardando bipagem...</p>
+                    </div>
+
+                    <input type="text" id="scanInput" class="invisible-input" autofocus autocomplete="off">
+
+                    <div class="bottom-drawer" id="drawer">
+                        <div class="drawer-handle" onclick="toggleDrawer()"></div>
+                        
+                        <div class="drawer-summary" onclick="toggleDrawer()">
+                            <p><span id="progresso-concluido">0/0</span>pacotes no carrinho</p>
+                        </div>
+                        
+                        <div class="drawer-content">
+                            <div id="visualList"></div>
+                        </div>
+
+                        <div class="drawer-footer">
+                            <button class="btn-primary" onclick="exportarCSV()">TERMINAR DE ESCANEAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-legal">
+            <div class="dev-social-links">
+                <a href="https://github.com/thluq" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/thiago-lucas-76b293208/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                 <p>Dev. <strong>Thiago Lucas</strong> (SSP20)</p>
+                  <p><strong>thiagoluc.goncalves@mercadolivre.com</strong></p>
+            </div>
+            
+            <hr>
+        </div>
+    </footer>
+
+    <!-- Modal: importar base via QR -->
+    <div id="modal-import" class="modal-overlay hidden">
+        <div class="modal-box">
+            <h3>Importar Base via QR</h3>
+            <p class="modal-sub">Bipe o QR gerado no computador. Se houver mais de uma parte, bipe todas.</p>
+            <div class="qr-scan-icon">📷</div>
+            <div id="import-status" class="import-status import-neutro">Aguardando leitura do QR...</div>
+            <input type="text" id="qrImportInput" class="invisible-input" autocomplete="off">
+            <button class="btn-secondary" onclick="fecharModalImport()">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- Modal: exportar base em QR -->
+    <div id="modal-export" class="modal-overlay hidden">
+        <div class="modal-box modal-box-wide">
+            <h3>QR da Base</h3>
+            <p class="modal-sub">Bipe cada parte na tela de configuração do coletor.</p>
+            <div id="qr-export-container"></div>
+            <button class="btn-secondary" onclick="fecharModalExport()">Fechar</button>
+        </div>
+    </div>
+
+    <script src="../libs/qrcode.min.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/auditoria.js"></script>
+</body>
+</html>

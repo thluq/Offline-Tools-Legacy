@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concatenar IDs - MELI</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/concatenar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="https://http2.mlstatic.com/frontend-assets/ui-navigation/5.19.5/mercadolibre/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+    <header class="kraken-nav-header">
+        <div class="header-content">
+            <div class="logo-container">
+                <a href="../index.html" class="logo-link">
+                    <img src="https://http2.mlstatic.com/frontend-assets/ui-navigation/5.19.5/mercadolibre/logo__large_plus.png" alt="Voltar" class="logo-img">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        <div class="concat-layout">
+            <div class="concat-card">
+                <h2>Concatenar IDs</h2>
+                <p class="subtitle">Cole ou importe sua base — os IDs serão extraídos e separados por vírgula para consultas SQL em massa.</p>
+                
+                <label class="file-import-label">
+                    📁 Importar Arquivo
+                    <input type="file" id="fileInput" style="display:none" onchange="lerArquivo(this)">
+                </label>
+
+                <textarea id="base-ids" placeholder="Cole os IDs aqui (um por linha, planilha colada, texto bruto...)&#10;&#10;Exemplo:&#10;42345678901&#10;42345678902&#10;42345678903"></textarea>
+
+                <button class="btn-primary" onclick="concatenarIDs()">EXTRAIR E CONCATENAR</button>
+
+                <div class="separator-section">
+                    <label for="separador">Separador:</label>
+                    <select id="separador" onchange="atualizarSeparador()">
+                        <option value="," selected>Vírgula ( , )</option>
+                        <option value=", ">Vírgula + espaço ( , )</option>
+                        <option value=";">Ponto e vírgula ( ; )</option>
+                        <option value="&#10;">Quebra de linha</option>
+                        <option value="QUOTED_COMMA">Aspas + vírgula</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="result-section" class="result-section hidden">
+                <div class="concat-card" style="margin-top: 20px;">
+                    <div class="result-header">
+                        <h3>Resultado</h3>
+                    </div>
+
+                    <div class="result-stats">
+                        <div class="stat-badge">
+                            🔢 <span id="stat-total">0</span> IDs únicos
+                        </div>
+                        <div class="stat-badge warning hidden">
+                            ⚠️ <span id="stat-dup">0</span>
+                        </div>
+                    </div>
+
+                    <div class="result-box" id="result-output"></div>
+
+                    <div class="action-buttons">
+                        <button class="btn-copy" id="btn-copiar" onclick="copiarResultado()">
+                            <i class="fas fa-copy"></i> Copiar
+                        </button>
+                        <button class="btn-download" onclick="baixarResultado()">
+                            <i class="fas fa-download"></i> Baixar .txt
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-legal">
+            <div class="dev-social-links">
+                <a href="https://github.com/thluq" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/thiago-lucas-76b293208/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <p>Dev. <strong>Thiago Lucas</strong> (SSP20)</p>
+		<p><strong>thiagoluc.goncalves@mercadolivre.com</strong></p>
+            </div>
+            
+            <hr>
+            
+            
+        </div>
+    </footer>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/concatenar.js"></script>
+</body>
+</html>

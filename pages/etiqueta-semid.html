@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador SEM ID - Meli</title>
+    <link rel="icon" type="image/svg+xml" href="https://http2.mlstatic.com/frontend-assets/ui-navigation/5.19.5/mercadolibre/favicon.svg">
+    
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/etiqueta-shared.css">
+    <link rel="stylesheet" href="../css/etiqueta-semid.css">
+    
+    <script src="../libs/JsBarcode.all.min.js"></script>
+    <script src="../libs/qrcode.min.js"></script>
+    <script src="../js/etiqueta-semid.js" defer></script>
+</head>
+<body>
+    <header class="kraken-nav-header no-print">
+        <div class="header-content">
+            <div class="logo-container">
+                <a href="../index.html">
+                    <img src="https://http2.mlstatic.com/frontend-assets/ui-navigation/5.19.5/mercadolibre/logo__large_plus.png" class="logo-img" alt="Mercado Livre">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="master-container">
+        <div class="input-panel no-print">
+            <h2>Etiqueta Sem ID</h2>
+            <p style="font-size: 13px; color: #666; margin-bottom: 20px;">Para pacotes sem identificação — Salvados.</p>
+
+            <div class="input-group">
+                <label>Facility</label>
+                <input type="text" id="in-facility" placeholder="Ex: SSP20" value="SSP20" oninput="this.value = this.value.toUpperCase()">
+            </div>
+
+            <div class="input-group">
+                <label>Numeração inicial</label>
+                <input type="number" id="in-start" value="1" min="1">
+            </div>
+
+            <div class="input-group">
+                <label>Quantidade de Etiquetas</label>
+                <input type="number" id="in-qty" value="1" min="1" max="100">
+            </div>
+
+            <div class="button-group">
+                <button class="btn-primary" onclick="gerarEtiquetas()" style="width: 100%; padding: 18px; font-weight: bold; font-size: 16px; cursor: pointer; border-radius: 8px; background-color: #3483fa; color: white; border: none;">
+                    GERAR E IMPRIMIR
+                </button>
+            </div>
+            
+            <div style="margin-top: 20px; font-size: 12px; color: #888;">
+                * As etiquetas serão geradas sequencialmente.<br>
+                * Formato: SEMID_FACILITY_NUMERO
+            </div>
+        </div>
+
+        <div class="label-view-area">
+            <div id="print-container"></div>
+        </div>
+    </div>
+</body>
+</html>
